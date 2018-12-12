@@ -1,5 +1,5 @@
 {
-  "name": "amazonback",
+  "name": "dingtalksdk",
   "version": "1.0.0",
   "description": "keywords for search team",
   "main": "app.js",
@@ -20,5 +20,13 @@
     "mongoose": "^5.2.15",
     "node-dingtalk": "^2.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xleox/dingtalkSDK.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xleox/dingtalkSDK/issues"
+  },
+  "homepage": "https://github.com/xleox/dingtalkSDK#readme"
 }
