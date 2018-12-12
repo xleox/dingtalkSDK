@@ -8,15 +8,10 @@ router.get('/',(req,res)=>{
     res.send('node-dingtalk Sever Start');
 });
 
-var message = {
-    messageUrl: '',
-    picUrl: '',
-    messageTitle: '',
-    messageText: '',
-    sendDepartmentId: [],
-};
 
-var addSendMessageMission = function(){
+
+var addSendMessageMission = function(message){
+
     dingtalk.client.getAccessToken().then(tokRet =>{
         message.sendDepartmentId.forEach(depId=>{
             dingtalk.user.list(depId, [false], [tokRet]).then(use=>{
@@ -57,12 +52,19 @@ router.post('/sendMessage',(req,res)=>{
         res.send('格式错误');
         return;
     }
+    var message = {
+        messageUrl: '',
+        picUrl: '',
+        messageTitle: '',
+        messageText: '',
+        sendDepartmentId: [],
+    };
     message.messageUrl = req.body.messageUrl;
     message.picUrl = req.body.picUrl;
     message.messageTitle = req.body.messageTitle;
     message.messageText = req.body.messageText;
     message.sendDepartmentId = req.body.sendDepartmentId;
-    addSendMessageMission();
+    addSendMessageMission(message);
 });
 
 module.exports = router;
