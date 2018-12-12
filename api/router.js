@@ -8,62 +8,42 @@ router.get('/',(req,res)=>{
     res.send('node-dingtalk Sever Start');
 });
 
-
-
 var addSendMessageMission = function(message){
-
-    dingtalk.client.getAccessToken().then(tokRet =>{
-        message.sendDepartmentId.forEach(depId=>{
-            dingtalk.user.list(depId, [false], [tokRet]).then(use=>{
-                use.userlist.forEach(userItem=>{
-                    if (userItem.userid === '2156526054947871') {
-                        return;
-                    }
-                    dingtalk.message.send({
-                        touser: userItem.userid,
-                        agentid: "210810582",
-                        msgtype: "link",
-                        link: {
-                            messageUrl: message.messageUrl,
-                            picUrl: message.picUrl,
-                            title: message.messageTitle,
-                            text: message.messageText
-                        }
-                    }).then(msg=>{
-                        // console.log('消息发送', msg);
-                        return new Promise(function(resolve, reject){resolve(msg);});
-                    }).catch(err=>{
-                        // console.log(err);
-                        return new Promise(function(resolve, reject){reject(err);});
-                    })
-                });
-            })
-        })
-    });
+    dingtalk.message.send({
+        touser: message.senduserId,
+        agentid: "210810582",
+        msgtype: "link",
+        link: {
+            messageUrl: message.messageUrl,
+            picUrl: message.picUrl,
+            title: message.messageInfo.名称 + ' (' + message.messageInfo.负责人 + ')',
+            text: message.messageInfo.订单编号 + ' \n' + message.messageInfo.商品详情[0].商品名称.slice(0, 20) + '... \n' + message.messageInfo.商品详情[0].SKU + ' \n' + message.messageInfo.金额 + ' \n' + message.messageInfo.销售渠道
+        }
+    }).then(msg=>{
+        // console.log('消息发送', msg);
+        return new Promise(function(resolve, reject){resolve(msg);});
+    }).catch(err=>{
+        // console.log(err);
+        return new Promise(function(resolve, reject){reject(err);});
+    })
 };
 
 router.post('/sendMessage',(req,res)=>{
     // console.log(req.body);
-    if (req.body.messageUrl === undefined || req.body.picUrl === undefined || req.body.messageTitle === undefined || req.body.messageText === undefined || req.body.sendDepartmentId === undefined) {
+    if (req.body.messageUrl === undefined || req.body.picUrl === undefined || req.body.messageInfo === undefined || req.body.senduserId === undefined) {
         res.send('格式错误');
         return;
     }
-    if (req.body.messageUrl === '' || req.body.picUrl === '' || req.body.messageTitle === '' || req.body.messageText === '' || req.body.sendDepartmentId === '') {
+    if (req.body.messageUrl === '' || req.body.picUrl === '' || req.body.messageInfo === '' || req.body.senduserId === '') {
         res.send('格式错误');
         return;
     }
     var message = {
-        messageUrl: '',
-        picUrl: '',
-        messageTitle: '',
-        messageText: '',
-        sendDepartmentId: [],
+        messageUrl: req.body.messageUrl,
+        picUrl: req.body.picUrl,
+        messageInfo: req.body.messageInfo,
+        senduserId: req.body.senduserId,
     };
-    message.messageUrl = req.body.messageUrl;
-    message.picUrl = req.body.picUrl;
-    message.messageTitle = req.body.messageTitle;
-    message.messageText = req.body.messageText;
-    message.sendDepartmentId = req.body.sendDepartmentId;
     addSendMessageMission(message);
 });
 
