@@ -17,7 +17,7 @@ var addSendMessageMission = function(message){
             messageUrl: message.messageUrl,
             picUrl: message.picUrl,
             title: message.messageName + ' (' + message.messagePrincipal + ')',
-            text: message.messageOrderNumber + ' \n' + message.messageShopName.slice(0, 30) + '... \n' + message.messageShopSku + ' \n' + message.messageShopPrice + '(' + message.messageSaleDitch + ')'
+            text: '######' + message.messageOrderNumber + ' \n' + message.messageShopName.slice(0, 30) + '... \n' + message.messageShopSku + ' \n' + message.messageShopPrice + '(' + message.messageSaleDitch + ')'
         }
     }).then(msg=>{
         console.log('消息发送', msg);
