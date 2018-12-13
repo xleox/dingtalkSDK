@@ -29,7 +29,7 @@ var addSendMessageMission = function(message){
 };
 
 router.post('/sendMessage',(req,res)=>{
-    // console.log(req.body);
+    console.log(req.body);
     if (req.body.messageUrl === undefined || req.body.picUrl === undefined || req.body.messageInfo === undefined || req.body.senduserId === undefined) {
         res.send('格式错误');
         return;
