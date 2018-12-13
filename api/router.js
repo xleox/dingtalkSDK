@@ -12,16 +12,36 @@ var addSendMessageMission = function(message){
     dingtalk.message.send({
         touser: message.senduserId,
         agentid: "210810582",
-        msgtype: "link",
-        link: {
-            messageUrl: message.messageUrl,
-            picUrl: message.picUrl,
-            title: '####账号：' + message.messageName + ' (' + message.messagePrincipal + ')',
-            text: '######订单编号：' + message.messageOrderNumber + ' \n' + message.messageShopName.slice(0, 80) + '... \n' + '######SKU：' + message.messageShopSku + ' \n' + '######金额：' + message.messageShopPrice + ' \n' + '销售渠道：' + message.messageSaleDitch,
-            file_count: "7",
+        msgtype: "oa",
+        oa: {
+            pc_message_url: message.messageUrl,
+            message_url: message.messageUrl,
+            head: {
+                bgcolor: "FFBBBBBB",
+                text: "账号出单"
+            },
+            body: {
+                title: '账号出单：' + message.messageName + ' (' + message.messagePrincipal + ')',
+                form: [{
+                        key: "订单编号：",
+                        value: message.messageOrderNumber
+                    }, {
+                        key: "SKU：",
+                        value: message.messageShopSku
+                    }, {
+                        key: "销售渠道：",
+                        value: message.messageSaleDitch
+                    }, {
+                        key: "金额：",
+                        value: message.messageShopPrice
+                }],
+                content: message.messageShopName,
+                image: message.picUrl.replace(/SX55/, "SX500"),
+                author: "Amazon"
+            }
         }
     }).then(msg=>{
-        console.log('消息发送', msg);
+        // console.log('消息发送', msg);
         return new Promise(function(resolve, reject){resolve(msg);});
     }).catch(err=>{
         // console.log(err);
