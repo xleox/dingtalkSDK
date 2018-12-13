@@ -21,7 +21,7 @@ var addSendMessageMission = function(message){
                 text: "账号出单"
             },
             body: {
-                title: '账号出单：' + message.messageName + ' (' + message.messagePrincipal + ')',
+                title: '出单：' + message.messageName + ' (' + message.messagePrincipal + ')',
                 form: [{
                         key: "订单编号：",
                         value: message.messageOrderNumber
