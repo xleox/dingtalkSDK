@@ -16,8 +16,8 @@ var addSendMessageMission = function(message){
         link: {
             messageUrl: message.messageUrl,
             picUrl: message.picUrl,
-            title: message.messageInfo.名称 + ' (' + message.messageInfo.负责人 + ')',
-            text: message.messageInfo.订单编号 + ' \n' + message.messageInfo.商品详情[0].商品名称.slice(0, 20) + '... \n' + message.messageInfo.商品详情[0].SKU + ' \n' + message.messageInfo.金额 + ' \n' + message.messageInfo.销售渠道
+            title: message.messageName + ' (' + message.messagePrincipal + ')',
+            text: message.messageOrderNumber + ' \n' + message.messageShopName.slice(0, 80) + '... \n' + message.messageShopSku + ' \n' + message.messageShopPrice + '(' + message.messageSaleDitch + ')'
         }
     }).then(msg=>{
         console.log('消息发送', msg);
@@ -29,19 +29,24 @@ var addSendMessageMission = function(message){
 };
 
 router.post('/sendMessage',(req,res)=>{
-    console.log(req.body, req.body.messageInfo);
-    if (req.body.messageUrl === undefined || req.body.picUrl === undefined || req.body.messageInfo === undefined || req.body.senduserId === undefined) {
+    if (req.body.messageUrl === undefined || req.body.picUrl === undefined || req.body.messagePrincipal === undefined || req.body.messageName === undefined || req.body.messageOrderNumber === undefined || req.body.messageShopName === undefined || req.body.messageShopSku === undefined || req.body.messageShopPrice === undefined || req.body.messageSaleDitch === undefined || req.body.senduserId === undefined) {
         res.send('格式错误');
         return;
     }
-    if (req.body.messageUrl === '' || req.body.picUrl === '' || req.body.messageInfo === '' || req.body.senduserId === '') {
+    if (req.body.messageUrl === '' || req.body.picUrl === '' || req.body.messagePrincipal === '' || req.body.messageName === '' || req.body.messageOrderNumber === '' || req.body.messageShopName === '' || req.body.messageShopSku === '' || req.body.messageShopPrice === '' || req.body.messageSaleDitch === '' || req.body.senduserId === '') {
         res.send('格式错误');
         return;
     }
     var message = {
         messageUrl: req.body.messageUrl,
         picUrl: req.body.picUrl,
-        messageInfo: req.body.messageInfo,
+        messagePrincipal: req.body.messagePrincipal,
+        messageName: req.body.messageName,
+        messageOrderNumber: req.body.messageOrderNumber,
+        messageShopName: req.body.messageShopName,
+        messageShopSku: req.body.messageShopSku,
+        messageShopPrice: req.body.messageShopPrice,
+        messageSaleDitch: req.body.messageSaleDitch,
         senduserId: req.body.senduserId,
     };
     addSendMessageMission(message);
