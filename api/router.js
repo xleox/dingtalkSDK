@@ -20,7 +20,7 @@ var addSendMessageMission = function(message){
             text: message.messageInfo.订单编号 + ' \n' + message.messageInfo.商品详情[0].商品名称.slice(0, 20) + '... \n' + message.messageInfo.商品详情[0].SKU + ' \n' + message.messageInfo.金额 + ' \n' + message.messageInfo.销售渠道
         }
     }).then(msg=>{
-        // console.log('消息发送', msg);
+        console.log('消息发送', msg);
         return new Promise(function(resolve, reject){resolve(msg);});
     }).catch(err=>{
         // console.log(err);
@@ -29,7 +29,7 @@ var addSendMessageMission = function(message){
 };
 
 router.post('/sendMessage',(req,res)=>{
-    console.log(req.body);
+    console.log(req.body, req.body.messageInfo);
     if (req.body.messageUrl === undefined || req.body.picUrl === undefined || req.body.messageInfo === undefined || req.body.senduserId === undefined) {
         res.send('格式错误');
         return;
