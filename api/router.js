@@ -16,9 +16,9 @@ var addSendMessageMission = function(message){
         link: {
             messageUrl: message.messageUrl,
             picUrl: message.picUrl,
-            title: message.messageName + ' (' + message.messagePrincipal + ')',
-            text: '######' + message.messageOrderNumber + ' \n' + message.messageShopName.slice(0, 30) + '... \n' + message.messageShopSku + ' \n' + message.messageShopPrice + ' \n' + message.messageSaleDitch,
-            file_count: "4",
+            title: '####账号：' + message.messageName + ' (' + message.messagePrincipal + ')',
+            text: '######订单编号：' + message.messageOrderNumber + ' \n' + message.messageShopName.slice(0, 80) + '... \n' + '######SKU：' + message.messageShopSku + ' \n' + '######金额：' + message.messageShopPrice + ' \n' + '销售渠道：' + message.messageSaleDitch,
+            file_count: "7",
         }
     }).then(msg=>{
         console.log('消息发送', msg);
