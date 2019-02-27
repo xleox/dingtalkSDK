@@ -75,14 +75,15 @@ router.post('/sendMessage',(req,res)=>{
 
 
 // 发送文本消息
-var addSendTextMessageMission = function(message){
+var addSendTextMessageMission = function(messageData){
+    console.log(messageData)
     dingtalk.message.send({
-        touser: message.userId,
+        touser: messageData.userId,
         agentid: "210810582",
         msgtype: "link",
         link: {
-            "title": message.textTitle,
-            "text": message.textContent
+            "title": messageData.textTitle,
+            "text": messageData.textContent
          }
     }).then(msg=>{
         console.log('消息发送', msg);
@@ -95,7 +96,6 @@ var addSendTextMessageMission = function(message){
 
 
 router.post('/sendTextMessage',(req,res)=>{
-    console.log(req.body);
     if (req.body.userId === undefined || req.body.textTitle === undefined || req.body.textContent === undefined) {
         res.send('格式错误');
         return;
@@ -104,12 +104,12 @@ router.post('/sendTextMessage',(req,res)=>{
         res.send('格式错误');
         return;
     }
-    var message = {
+    var messageData = {
         userId: req.body.userId,
         textTitle: req.body.textTitle,
         textContent: req.body.textContent,
     };
-    addSendTextMessageMission(message);
+    addSendTextMessageMission(messageData);
 });
 
 module.exports = router;
