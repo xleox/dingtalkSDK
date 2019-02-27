@@ -86,10 +86,10 @@ var addSendTextMessageMission = function(message){
          }
     }).then(msg=>{
         console.log('消息发送', msg);
-        // return new Promise(function(resolve, reject){resolve(msg);});
+        return new Promise(function(resolve, reject){resolve(msg);});
     }).catch(err=>{
         console.log(err);
-        // return new Promise(function(resolve, reject){reject(err);});
+        return new Promise(function(resolve, reject){reject(err);});
     })
 };
 
