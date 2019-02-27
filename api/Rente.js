@@ -76,7 +76,7 @@ router.post('/sendMessage',(req,res)=>{
 
 // 发送文本消息
 var addSendTextMessageMission = function(messageData){
-    console.log(messageData)
+    // console.log(messageData)
     dingtalk.message.send({
         touser: messageData.userId,
         agentid: "210810582",
@@ -86,7 +86,7 @@ var addSendTextMessageMission = function(messageData){
             "text": messageData.textContent
          }
     }).then(msg=>{
-        // console.log('消息发送', msg);
+        console.log('消息发送', msg);
         return new Promise(function(resolve, reject){resolve(msg);});
     }).catch(err=>{
         // console.log(err);
