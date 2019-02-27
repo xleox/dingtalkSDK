@@ -5,7 +5,7 @@ const Promise = require("bluebird");
 const bodyParser = require('body-parser');
 const fs=Promise.promisifyAll(require('fs'));
 const path = require('path');
-const router = require('./api/router');
+const router = require('./api/Rente');
 const PORT = 6677;
 
 dingding.use(bodyParser.json());

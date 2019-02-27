@@ -7,7 +7,7 @@ const dingtalk = new DingTalk(options);
 router.get('/',(req,res)=>{
     res.send('node-dingtalk Sever Start');
 });
-
+// 发送出单消息提醒
 var addSendMessageMission = function(message){
     dingtalk.message.send({
         touser: message.senduserId,
@@ -71,6 +71,44 @@ router.post('/sendMessage',(req,res)=>{
         senduserId: req.body.senduserId,
     };
     addSendMessageMission(message);
+});
+
+
+// 发送文本消息
+var addSendTextMessageMission = function(message){
+    dingtalk.message.send({
+        touser: message.userId,
+        agentid: "210810582",
+        msgtype: "link",
+        link: {
+            "title": message.textTitle,
+            "text": message.textContent
+         }
+    }).then(msg=>{
+        console.log('消息发送', msg);
+        // return new Promise(function(resolve, reject){resolve(msg);});
+    }).catch(err=>{
+        console.log(err);
+        // return new Promise(function(resolve, reject){reject(err);});
+    })
+};
+
+
+router.post('/sendTextMessage',(req,res)=>{
+    if (req.body.userId === undefined || req.body.textTitle === undefined || req.body.textContent === undefined) {
+        res.send('格式错误');
+        return;
+    }
+    if (req.body.userId === '' || req.body.textTitle === '' || req.body.textContent === '') {
+        res.send('格式错误');
+        return;
+    }
+    var message = {
+        userId: req.body.userId,
+        textTitle: req.body.textTitle,
+        textContent: req.body.textContent,
+    };
+    addSendTextMessageMission(message);
 });
 
 module.exports = router;
