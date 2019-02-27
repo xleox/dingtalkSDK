@@ -95,6 +95,7 @@ var addSendTextMessageMission = function(message){
 
 
 router.post('/sendTextMessage',(req,res)=>{
+    console.log(req.body);
     if (req.body.userId === undefined || req.body.textTitle === undefined || req.body.textContent === undefined) {
         res.send('格式错误');
         return;
