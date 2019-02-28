@@ -70,9 +70,13 @@ router.post('/sendMessage',(req,res)=>{
     var messageData = {
         type: req.body.type,
         title: req.body.title,
-        content: req.body.content,
         userID: req.body.userID,
     };
+    if (req.body.type === 'text') {
+        messageData.content = JSON.parse(req.body.content);
+    } else {
+        messageData.content = req.body.content;
+    }
     addSendMessageMission(messageData);
 
     // if (req.body.messageUrl === undefined || req.body.picUrl === undefined || req.body.messagePrincipal === undefined || req.body.messageName === undefined || req.body.messageOrderNumber === undefined || req.body.messageShopName === undefined || req.body.messageShopSku === undefined || req.body.messageShopPrice === undefined || req.body.messageSaleDitch === undefined || req.body.senduserId === undefined) {
