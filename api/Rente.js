@@ -14,7 +14,6 @@ var addSendMessageMission = function(messageData){
     if (messageData.type === 'text') {
         temp.msgtype = 'text';
         temp.text = {
-            "title": messageData.title,
             "content": messageData.content
         };
     } else {
