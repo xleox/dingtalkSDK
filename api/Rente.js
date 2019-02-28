@@ -57,18 +57,14 @@ var addSendMessageMission = function(messageData){
 
 router.post('/sendMessage',(req,res)=>{
     // console.log(req.body);
-    if (req.body.userID === undefined || req.body.title === undefined || req.body.type === undefined || req.body.content === undefined) {
-        res.send('格式错误');
-        return;
-    }
-    if (req.body.userID === '' || req.body.title === '' || req.body.type === '' || req.body.content === '') {
+    if (req.body.type === undefined || req.body.content === undefined || req.body.type === '' || req.body.content === '') {
         res.send('格式错误');
         return;
     }
     var messageData = {
         type: req.body.type,
         title: req.body.title,
-        userID: req.body.userID,
+        userID: 'manager1170|2156526054947871|215741075732367681|216039696838983459|116234674436480417|21565119341042799|220034443029640124|152263051426467241|2169332642841261|1333115857853755|1329376335850257|21573503281225898|242340236524673829',
     };
     if (req.body.type !== 'text') {
         messageData.content = JSON.parse(req.body.content);
