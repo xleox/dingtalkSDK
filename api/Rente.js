@@ -68,7 +68,7 @@ router.post('/sendMessage',(req,res)=>{
     }
     var messageData = {
         type: req.body.type,
-        // title: req.body.title,
+        title: req.body.title,
         userID: req.body.userID,
     };
     if (req.body.type !== 'text') {
