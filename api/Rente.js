@@ -47,6 +47,7 @@ var addSendMessageMission = function(messageData){
             }
         };
     }
+    console.log('temp', temp)
     dingtalk.message.send(temp).then(msg=>{
         // console.log('消息发送', msg);
         return new Promise(function(resolve, reject){resolve(msg);});
