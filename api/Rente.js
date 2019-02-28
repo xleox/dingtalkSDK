@@ -79,6 +79,10 @@ var addSendTextMessageMission = function(messageData){
     dingtalk.client.getAccessToken()
         .then(doc=>{
             console.log(doc);
+            dingtalk.department.list([doc])
+                .then(departmentL=>{
+                    console.log('department', departmentL)
+                })
         })
     // console.log(messageData)
     // dingtalk.message.send({
