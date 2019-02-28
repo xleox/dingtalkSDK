@@ -12,10 +12,9 @@ router.get('/',(req,res)=>{
 var addSendMessageMission = function(messageData){
     var temp = {touser: messageData.userID, agentid: "210810582"};
     if (messageData.type === 'text') {
-        temp.msgtype = 'link';
+        temp.msgtype = 'text';
         temp.link = {
-            "title": messageData.title,
-            "text": messageData.content
+            "content": messageData.content
         };
     } else {
         temp.msgtype = 'oa';
