@@ -47,7 +47,7 @@ var addSendMessageMission = function(messageData){
             }
         };
     }
-    console.log('temp', temp)
+    console.log('temp', temp);
     dingtalk.message.send(temp).then(msg=>{
         // console.log('消息发送', msg);
         return new Promise(function(resolve, reject){resolve(msg);});
@@ -70,7 +70,7 @@ router.post('/sendMessage',(req,res)=>{
     var messageData = {
         type: req.body.type,
         title: req.body.title,
-        content: req.body.content,
+        content: JSON.parse(req.body.content),
         userID: req.body.userID,
     };
     addSendMessageMission(messageData);
