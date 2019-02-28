@@ -9,39 +9,45 @@ router.get('/',(req,res)=>{
     res.send('node-dingtalk Sever Start');
 });
 // 发送出单消息提醒
-var addSendMessageMission = function(message){
-    dingtalk.message.send({
-        touser: message.senduserId,
-        agentid: "210810582",
-        msgtype: "oa",
-        oa: {
-            pc_message_url: message.messageUrl,
-            message_url: message.messageUrl,
+var addSendMessageMission = function(messageData){
+    var temp = {touser: messageData.userID, agentid: "210810582"};
+    if (messageData.type === 'text') {
+        temp.msgtype = 'link';
+        temp.link = {
+            "title": messageData.content.title,
+            "text": messageData.content.content
+        };
+    } else {
+        temp.msgtype = 'oa';
+        temp.oa = {
+            pc_message_url: 'https://www.'+ messageData.销售渠道 + '/gp/product/' + messageData.ASIN,
+            message_url: 'https://www.'+ messageData.销售渠道 + '/gp/product/' + messageData.ASIN,
             head: {
                 bgcolor: "FFBBBBBB",
                 text: "账号出单"
             },
             body: {
-                title: '出单：' + message.messageName + ' (' + message.messagePrincipal + ')',
+                title: '出单：' + messageData.名称 + ' (' + messageData.负责人 + ')',
                 form: [{
-                        key: "订单编号：",
-                        value: message.messageOrderNumber
-                    }, {
-                        key: "SKU：",
-                        value: message.messageShopSku
-                    }, {
-                        key: "销售渠道：",
-                        value: message.messageSaleDitch
-                    }, {
-                        key: "金额：",
-                        value: message.messageShopPrice
+                    key: "订单编号：",
+                    value: messageData.订单编号
+                }, {
+                    key: "SKU：",
+                    value: messageData.SKU
+                }, {
+                    key: "销售渠道：",
+                    value: messageData.销售渠道
+                }, {
+                    key: "金额：",
+                    value: messageData.金额
                 }],
-                content: message.messageShopName,
-                image: message.picUrl.replace(/SX55/, "SX500"),
+                content: messageData.商品名称,
+                image: messageData.商品图片.replace(/SX55/, "SX500"),
                 author: "Amazon"
             }
-        }
-    }).then(msg=>{
+        };
+    }
+    dingtalk.message.send(temp).then(msg=>{
         // console.log('消息发送', msg);
         return new Promise(function(resolve, reject){resolve(msg);});
     }).catch(err=>{
@@ -52,6 +58,22 @@ var addSendMessageMission = function(message){
 
 router.post('/sendMessage',(req,res)=>{
     console.log(req.body);
+    if (req.body.userID === undefined || req.body.title === undefined || req.body.type === undefined || req.body.content === undefined) {
+        res.send('格式错误');
+        return;
+    }
+    if (req.body.userID === '' || req.body.title === '' || req.body.type === '' || req.body.content === '') {
+        res.send('格式错误');
+        return;
+    }
+    var messageData = {
+        type: req.body.type,
+        title: req.body.title,
+        content: req.body.content,
+        userID: req.body.userID,
+    };
+    addSendMessageMission(messageData);
+
     // if (req.body.messageUrl === undefined || req.body.picUrl === undefined || req.body.messagePrincipal === undefined || req.body.messageName === undefined || req.body.messageOrderNumber === undefined || req.body.messageShopName === undefined || req.body.messageShopSku === undefined || req.body.messageShopPrice === undefined || req.body.messageSaleDitch === undefined || req.body.senduserId === undefined) {
     //     res.send('格式错误');
     //     return;
@@ -108,6 +130,42 @@ router.post('/sendMessage',(req,res)=>{
 //         res.send('格式错误');
 //         return;
 //     }
+
+
+// {
+//     touser: messageData.userID,
+//         agentid: "210810582",
+//     msgtype: messageData.type,
+//     oa: {
+//     pc_message_url: message.messageUrl,
+//         message_url: message.messageUrl,
+//         head: {
+//         bgcolor: "FFBBBBBB",
+//             text: "账号出单"
+//     },
+//     body: {
+//         title: '出单：' + message.messageName + ' (' + message.messagePrincipal + ')',
+//             form: [{
+//             key: "订单编号：",
+//             value: message.messageOrderNumber
+//         }, {
+//             key: "SKU：",
+//             value: message.messageShopSku
+//         }, {
+//             key: "销售渠道：",
+//             value: message.messageSaleDitch
+//         }, {
+//             key: "金额：",
+//             value: message.messageShopPrice
+//         }],
+//             content: message.messageShopName,
+//             image: message.picUrl.replace(/SX55/, "SX500"),
+//             author: "Amazon"
+//     }
+// }
+// }
+
+
 //
 //     addSendTextMessageMission(messageData);
 //     // res.send('ok');
