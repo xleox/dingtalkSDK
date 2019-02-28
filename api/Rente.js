@@ -70,7 +70,7 @@ router.post('/sendMessage',(req,res)=>{
     var messageData = {
         type: req.body.type,
         title: req.body.title,
-        content: JSON.parse(req.body.content),
+        content: req.body.content,
         userID: req.body.userID,
     };
     addSendMessageMission(messageData);
