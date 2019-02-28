@@ -76,13 +76,30 @@ router.post('/sendMessage',(req,res)=>{
 
 // 发送文本消息
 var addSendTextMessageMission = function(messageData){
-    dingtalk.client.getAccessToken()
-        .then(doc=>{
-            console.log(doc);
-            dingtalk.department.list([doc])
-                .then(departmentL=>{
-                    console.log('department', departmentL)
-                })
+    // dingtalk.client.getAccessToken()
+    //     .then(doc=>{
+    //         console.log(doc);
+    //         dingtalk.department.list([doc])
+    //             .then(departmentL=>{
+    //                 console.log('department', departmentL)
+    //             })
+    //     })
+    console.log(messageData.userId, messageData.textTitle, messageData.textContent);
+    dingtalk.message.send({
+        touser: messageData.userId,
+        agentid: "210810582",
+        msgtype: "link",
+        link: {
+            "title": messageData.textTitle,
+            "text": messageData.textContent
+         }
+    }).then(msg=>{
+            console.log('发送结果',msg);
+            dingtalk.message.listMessageStatus(msg.messageId)
+                .then(doc=>{
+                    console.log('消息状态',doc)
+                }
+            )
         })
     // console.log(messageData)
     // dingtalk.message.send({
