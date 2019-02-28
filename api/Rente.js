@@ -76,65 +76,48 @@ router.post('/sendMessage',(req,res)=>{
 
 // 发送文本消息
 var addSendTextMessageMission = function(messageData){
-    // dingtalk.client.getAccessToken()
-    //     .then(doc=>{
-    //         console.log(doc);
-    //         dingtalk.department.list([doc])
-    //             .then(departmentL=>{
-    //                 console.log('department', departmentL)
-    //             })
-    //     })
-    console.log(messageData.userId, messageData.textTitle, messageData.textContent);
     dingtalk.message.send({
-        "touser": messageData.userId,
-        "agentid": "210810582",
-        "msgtype": "link",
-        "link": {
+        touser: messageData.userId,
+        agentid: "210810582",
+        msgtype: "link",
+        link: {
             "title": messageData.textTitle,
             "text": messageData.textContent
          }
     }).then(msg=>{
-            console.log('发送结果',msg);
-            dingtalk.message.listMessageStatus(msg.messageId)
-                .then(doc=>{
-                    console.log('消息状态',doc)
-                }
-            )
-        })
-    // console.log(messageData)
-    // dingtalk.message.send({
-    //     touser: messageData.userId,
-    //     agentid: "210810582",
-    //     msgtype: "link",
-    //     link: {
-    //         "title": messageData.textTitle,
-    //         "text": messageData.textContent
-    //      }
-    // }).then(msg=>{
-    //     console.log('消息发送', msg);
-    //     return new Promise(function(resolve, reject){resolve(msg);});
-    // }).catch(err=>{
-    //     // console.log(err);
-    //     return new Promise(function(resolve, reject){reject(err);});
-    // })
+        console.log('消息发送', msg);
+        return new Promise(function(resolve, reject){resolve(msg);});
+    }).catch(err=>{
+        // console.log(err);
+        return new Promise(function(resolve, reject){reject(err);});
+    })
 };
 
-
-router.post('/sendTextMessage',(req,res)=>{
-    if (req.body.userId === undefined || req.body.textTitle === undefined || req.body.textContent === undefined) {
-        res.send('格式错误');
-        return;
-    }
-    if (req.body.userId === '' || req.body.textTitle === '' || req.body.textContent === '') {
-        res.send('格式错误');
-        return;
-    }
+exports.sendTextMessage = () => {
     var messageData = {
-        userId: req.body.userId,
-        textTitle: req.body.textTitle,
-        textContent: req.body.textContent,
+        userId: '215741075732367681|2169332642841261',
+        textTitle: "订单抓取提示",
+        textContent: "厦门服务器掉线",
     };
     addSendTextMessageMission(messageData);
-});
+
+}
+
+// router.post('/sendTextMessage',(req,res)=>{
+//     if (req.body.userId === undefined || req.body.textTitle === undefined || req.body.textContent === undefined) {
+//         res.send('格式错误');
+//         return;
+//     }
+//     if (req.body.userId === '' || req.body.textTitle === '' || req.body.textContent === '') {
+//         res.send('格式错误');
+//         return;
+//     }
+//     var messageData = {
+//         userId: req.body.userId,
+//         textTitle: req.body.textTitle,
+//         textContent: req.body.textContent,
+//     };
+//     addSendTextMessageMission(messageData);
+// });
 
 module.exports = router;

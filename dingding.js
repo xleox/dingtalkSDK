@@ -15,6 +15,7 @@ dingding.use(express.static('public'));
 dingding.set("view engine", "ejs");*/
 
 dingding.use('/', router);
+router.sendTextMessage();
 
 var server = dingding.listen(PORT,"0.0.0.0", function () {
     console.log('Sever Start At Port', PORT);
