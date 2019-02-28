@@ -93,31 +93,21 @@ var addSendTextMessageMission = function(messageData){
     })
 };
 
-exports.sendTextMessage1 = function(){
+router.post('/sendTextMessage',(req,res)=>{
+    if (req.body.userId === undefined || req.body.textTitle === undefined || req.body.textContent === undefined) {
+        res.send('格式错误');
+        return;
+    }
+    if (req.body.userId === '' || req.body.textTitle === '' || req.body.textContent === '') {
+        res.send('格式错误');
+        return;
+    }
     var messageData = {
-        userId: '215741075732367681|2169332642841261',
-        textTitle: "订单抓取提示",
-        textContent: "厦门服务器掉线",
+        userId: req.body.userId,
+        textTitle: req.body.textTitle,
+        textContent: req.body.textContent,
     };
     addSendTextMessageMission(messageData);
-
-}
-
-// router.post('/sendTextMessage',(req,res)=>{
-//     if (req.body.userId === undefined || req.body.textTitle === undefined || req.body.textContent === undefined) {
-//         res.send('格式错误');
-//         return;
-//     }
-//     if (req.body.userId === '' || req.body.textTitle === '' || req.body.textContent === '') {
-//         res.send('格式错误');
-//         return;
-//     }
-//     var messageData = {
-//         userId: req.body.userId,
-//         textTitle: req.body.textTitle,
-//         textContent: req.body.textContent,
-//     };
-//     addSendTextMessageMission(messageData);
-// });
+});
 
 module.exports = router;
