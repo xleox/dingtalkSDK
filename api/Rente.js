@@ -56,7 +56,7 @@ var addSendMessageMission = function(messageData){
 };
 
 router.post('/sendMessage',(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     if (req.body.userID === undefined || req.body.title === undefined || req.body.type === undefined || req.body.content === undefined) {
         res.send('格式错误');
         return;
