@@ -75,41 +75,41 @@ router.post('/sendMessage',(req,res)=>{
 
 
 // 发送文本消息
-// var addSendTextMessageMission = function(messageData){
-//     // console.log(messageData)
-//     dingtalk.message.send({
-//         touser: messageData.userId,
-//         agentid: "210810582",
-//         msgtype: "link",
-//         link: {
-//             "title": messageData.textTitle,
-//             "text": messageData.textContent
-//          }
-//     }).then(msg=>{
-//         console.log('消息发送', msg);
-//         return new Promise(function(resolve, reject){resolve(msg);});
-//     }).catch(err=>{
-//         // console.log(err);
-//         return new Promise(function(resolve, reject){reject(err);});
-//     })
-// };
-//
-//
-// router.post('/sendTextMessage',(req,res)=>{
-//     if (req.body.userId === undefined || req.body.textTitle === undefined || req.body.textContent === undefined) {
-//         res.send('格式错误');
-//         return;
-//     }
-//     if (req.body.userId === '' || req.body.textTitle === '' || req.body.textContent === '') {
-//         res.send('格式错误');
-//         return;
-//     }
-//     var messageData = {
-//         userId: req.body.userId,
-//         textTitle: req.body.textTitle,
-//         textContent: req.body.textContent,
-//     };
-//     addSendTextMessageMission(messageData);
-// });
+var addSendTextMessageMission = function(messageData){
+    // console.log(messageData)
+    dingtalk.message.send({
+        touser: messageData.userId,
+        agentid: "210810582",
+        msgtype: "link",
+        link: {
+            "title": messageData.textTitle,
+            "text": messageData.textContent
+         }
+    }).then(msg=>{
+        console.log('消息发送', msg);
+        return new Promise(function(resolve, reject){resolve(msg);});
+    }).catch(err=>{
+        // console.log(err);
+        return new Promise(function(resolve, reject){reject(err);});
+    })
+};
+
+
+router.post('/sendTextMessage',(req,res)=>{
+    if (req.body.userId === undefined || req.body.textTitle === undefined || req.body.textContent === undefined) {
+        res.send('格式错误');
+        return;
+    }
+    if (req.body.userId === '' || req.body.textTitle === '' || req.body.textContent === '') {
+        res.send('格式错误');
+        return;
+    }
+    var messageData = {
+        userId: req.body.userId,
+        textTitle: req.body.textTitle,
+        textContent: req.body.textContent,
+    };
+    addSendTextMessageMission(messageData);
+});
 
 module.exports = router;
