@@ -1,7 +1,6 @@
 "use strict";
 const express = require('express');
 const dingding = express();
-const Promise = require("bluebird");
 const bodyParser = require('body-parser');
 const fs=Promise.promisifyAll(require('fs'));
 const path = require('path');

@@ -3,6 +3,7 @@ const router = express.Router();
 const DingTalk = require('node-dingtalk');
 const options = require('../public/config');
 const dingtalk = new DingTalk(options);
+const Promise = require("bluebird");
 
 router.get('/',(req,res)=>{
     res.send('node-dingtalk Sever Start');
