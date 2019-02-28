@@ -2,8 +2,8 @@
 const express = require('express');
 const dingding = express();
 const bodyParser = require('body-parser');
-const fs=Promise.promisifyAll(require('fs'));
-const path = require('path');
+// const fs=Promise.promisifyAll(require('fs'));
+// const path = require('path');
 const router = require('./api/Rente');
 const PORT = 6677;
 
