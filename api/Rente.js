@@ -20,29 +20,29 @@ var addSendMessageMission = function(messageData){
     } else {
         temp.msgtype = 'oa';
         temp.oa = {
-            pc_message_url: 'https://www.'+ messageData.销售渠道 + '/gp/product/' + messageData.ASIN,
-            message_url: 'https://www.'+ messageData.销售渠道 + '/gp/product/' + messageData.ASIN,
+            pc_message_url: 'https://www.'+ messageData.content.销售渠道 + '/gp/product/' + messageData.content.ASIN,
+            message_url: 'https://www.'+ messageData.content.销售渠道 + '/gp/product/' + messageData.content.ASIN,
             head: {
                 bgcolor: "FFBBBBBB",
                 text: "账号出单"
             },
             body: {
-                title: '出单：' + messageData.名称 + ' (' + messageData.负责人 + ')',
+                title: '出单：' + messageData.content.名称 + ' (' + messageData.content.负责人 + ')',
                 form: [{
                     key: "订单编号：",
-                    value: messageData.订单编号
+                    value: messageData.content.订单编号
                 }, {
                     key: "SKU：",
-                    value: messageData.SKU
+                    value: messageData.content.SKU
                 }, {
                     key: "销售渠道：",
-                    value: messageData.销售渠道
+                    value: messageData.content.销售渠道
                 }, {
                     key: "金额：",
-                    value: messageData.金额
+                    value: messageData.content.金额
                 }],
-                content: messageData.商品名称,
-                image: messageData.商品图片.replace(/SX55/, "SX500"),
+                content: messageData.content.商品名称,
+                image: messageData.content.商品图片.replace(/SX55/, "SX500"),
                 author: "Amazon"
             }
         };
