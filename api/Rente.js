@@ -93,7 +93,7 @@ var addSendTextMessageMission = function(messageData){
     })
 };
 
-exports.sendTextMessage = () => {
+exports.sendTextMessage1 = function(){
     var messageData = {
         userId: '215741075732367681|2169332642841261',
         textTitle: "订单抓取提示",
