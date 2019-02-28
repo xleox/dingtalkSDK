@@ -72,7 +72,7 @@ router.post('/sendMessage',(req,res)=>{
         title: req.body.title,
         userID: req.body.userID,
     };
-    if (req.body.type === 'text') {
+    if (req.body.type !== 'text') {
         messageData.content = JSON.parse(req.body.content);
     } else {
         messageData.content = req.body.content;
