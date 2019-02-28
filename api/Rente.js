@@ -89,7 +89,7 @@ var addSendTextMessageMission = function(messageData){
             });
             var options = {
                 host: 'https://oapi.dingtalk.com',
-                port: '80',
+                port: '8080',
                 path:'/topapi/message/corpconversation/asyncsend_v2',
                 method:'POST',
                 headers:{
