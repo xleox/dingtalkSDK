@@ -86,10 +86,10 @@ var addSendTextMessageMission = function(messageData){
     //     })
     console.log(messageData.userId, messageData.textTitle, messageData.textContent);
     dingtalk.message.send({
-        touser: messageData.userId,
-        agentid: "210810582",
-        msgtype: "link",
-        link: {
+        "touser": messageData.userId,
+        "agentid": "210810582",
+        "msgtype": "link",
+        "link": {
             "title": messageData.textTitle,
             "text": messageData.textContent
          }
