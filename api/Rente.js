@@ -76,6 +76,7 @@ router.post('/sendMessage',(req,res)=>{
         messageData.content = req.body.content;
     }
     addSendMessageMission(messageData);
+    res.send('ok');
 });
 
 module.exports = router;
