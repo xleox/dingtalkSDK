@@ -13,7 +13,7 @@ var addSendMessageMission = function(messageData){
     var temp = {touser: messageData.userID, agentid: "210810582"};
     if (messageData.type === 'text') {
         temp.msgtype = 'text';
-        temp.link = {
+        temp.text = {
             "content": messageData.content
         };
     } else {
