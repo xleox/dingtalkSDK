@@ -89,6 +89,10 @@ var addSendTextMessageMission = function(messageData){
          }
     }).then(msg=>{
         console.log('消息发送', msg);
+        dingtalk.message.listMessageStatus(msg.messageId)
+            .then(doc=>{
+                console.log("消息状态", doc);
+            })
         // return new Promise(function(resolve, reject){resolve(msg);});
     }).catch(err=>{
         console.log(err);
