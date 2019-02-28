@@ -88,12 +88,12 @@ var addSendTextMessageMission = function(messageData){
                 msg: {"msgtype":"text","text":{"content":"消息内容"}}
             });
             var options = {
-                host: 'https://oapi.dingtalk.com/topapi/message/corpconversation/asyncsend_v2',
+                host: 'https://oapi.dingtalk.com',
                 // port: '8080',
-                // path:'',
+                path:'/topapi/message/corpconversation/asyncsend_v2?access_token='+doc,
                 method:'POST',
                 headers:{
-                    'Content-Type':'application/x-www-form-urlencoded?access_token='+doc,
+                    'Content-Type':'application/x-www-form-urlencoded',
                     'Content-Length':contents.length
                 }
             };
