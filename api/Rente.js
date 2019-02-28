@@ -19,7 +19,7 @@ var addSendMessageMission = function(messageData){
         temp.msgtype = 'markdown';
         temp.markdown = {
             "title": messageData.title,
-            "content": messageData.content
+            "text": messageData.content
         };
     } else {
         temp.msgtype = 'oa';
