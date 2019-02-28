@@ -4,6 +4,8 @@ const DingTalk = require('node-dingtalk');
 const options = require('../public/config');
 const dingtalk = new DingTalk(options);
 const Promise = require("bluebird");
+const querystring = require('querystring');
+const http=require('http');
 
 router.get('/',(req,res)=>{
     res.send('node-dingtalk Sever Start');
@@ -77,21 +79,65 @@ router.post('/sendMessage',(req,res)=>{
 
 // 发送文本消息
 var addSendTextMessageMission = function(messageData){
-    dingtalk.message.send({
-        touser: messageData.userId,
-        agentid: "210810582",
-        msgtype: "link",
-        link: {
-            "title": messageData.textTitle,
-            "text": messageData.textContent
-         }
-    }).then(msg=>{
-        console.log('消息发送', msg);
-        // return new Promise(function(resolve, reject){resolve(msg);});
-    }).catch(err=>{
-        // console.log(err);
-        // return new Promise(function(resolve, reject){reject(err);});
-    })
+    // https://oapi.dingtalk.com/chat/send?access_token=ACCESS_TOKEN
+    dingtalk.client.getAccessToken()
+        .then(doc=>{
+            var contents = querystring.stringify({
+                access_token: doc,
+            });
+            var options = {
+                host: 'https://oapi.dingtalk.com',
+                port: '80',
+                path:'/chat/send',
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/x-www-form-urlencoded',
+                    'Content-Length':contents.length
+                }
+            };
+            var sendMessagePost = http.request(options, function(req){
+                var postData=[];
+                var postSize=0;
+                req.setEncoding('utf8');
+                req.on('data',function(data){
+                    postData.push(data);
+                    postSize+=data.length;
+                }).on('end',function(data){
+                    console.log(postData);
+                }).on('error', function(err) {
+                    console.log('发送钉钉消息任务出错',err);
+                });
+            }).on('error',(err)=>{console.log("发送钉钉消息连接出错" + err)});
+            sendMessagePost.write(contents);
+            sendMessagePost.end();
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+    // dingtalk.message.send({
+    //     touser: messageData.userId,
+    //     agentid: "210810582",
+    //     msgtype: "link",
+    //     link: {
+    //         "title": messageData.textTitle,
+    //         "text": messageData.textContent
+    //      }
+    // }).then(msg=>{
+    //     console.log('消息发送', msg);
+    //     // return new Promise(function(resolve, reject){resolve(msg);});
+    // }).catch(err=>{
+    //     // console.log(err);
+    //     // return new Promise(function(resolve, reject){reject(err);});
+    // })
 };
 
 router.post('/sendTextMessage',(req,res)=>{
