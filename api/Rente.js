@@ -14,8 +14,8 @@ var addSendMessageMission = function(messageData){
     if (messageData.type === 'text') {
         temp.msgtype = 'link';
         temp.link = {
-            "title": messageData.content.title,
-            "text": messageData.content.content
+            "title": messageData.title,
+            "text": messageData.content
         };
     } else {
         temp.msgtype = 'oa';
