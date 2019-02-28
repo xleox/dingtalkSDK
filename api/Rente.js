@@ -9,8 +9,8 @@ router.get('/',(req,res)=>{
     res.send('node-dingtalk Sever Start');
 });
 // 发送出单消息提醒
-var addSendMessageMission = function(messageData, text){
-    if (text === '出单') {
+var addSendMessageMission = function(messageData){
+    if (messageData.type === '出单') {
         dingtalk.message.send({
             touser: messageData.senduserId,
             agentid: "210810582",
@@ -84,6 +84,7 @@ router.post('/sendMessage',(req,res)=>{
             return;
         }
         var message = {
+            type: req.body.type,
             messageUrl: req.body.messageUrl,
             picUrl: req.body.picUrl,
             messagePrincipal: req.body.messagePrincipal,
@@ -106,11 +107,12 @@ router.post('/sendMessage',(req,res)=>{
             return;
         }
         var messageData = {
+            type: req.body.type,
             userId: req.body.userId,
             textTitle: req.body.textTitle,
             textContent: req.body.textContent,
         };
-        addSendMessageMission(messageData, '提示');
+        addSendMessageMission(messageData);
     }
 
 
