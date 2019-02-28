@@ -4,8 +4,6 @@ const DingTalk = require('node-dingtalk');
 const options = require('../public/config');
 const dingtalk = new DingTalk(options);
 const Promise = require("bluebird");
-const querystring = require('querystring');
-const http=require('http');
 
 router.get('/',(req,res)=>{
     res.send('node-dingtalk Sever Start');
@@ -53,30 +51,28 @@ var addSendMessageMission = function(message){
 };
 
 router.post('/sendMessage',(req,res)=>{
-    if (req.body) {
-
-    }
-    if (req.body.messageUrl === undefined || req.body.picUrl === undefined || req.body.messagePrincipal === undefined || req.body.messageName === undefined || req.body.messageOrderNumber === undefined || req.body.messageShopName === undefined || req.body.messageShopSku === undefined || req.body.messageShopPrice === undefined || req.body.messageSaleDitch === undefined || req.body.senduserId === undefined) {
-        res.send('格式错误');
-        return;
-    }
-    if (req.body.messageUrl === '' || req.body.picUrl === '' || req.body.messagePrincipal === '' || req.body.messageName === '' || req.body.messageOrderNumber === '' || req.body.messageShopName === '' || req.body.messageShopSku === '' || req.body.messageShopPrice === '' || req.body.messageSaleDitch === '' || req.body.senduserId === '') {
-        res.send('格式错误');
-        return;
-    }
-    var message = {
-        messageUrl: req.body.messageUrl,
-        picUrl: req.body.picUrl,
-        messagePrincipal: req.body.messagePrincipal,
-        messageName: req.body.messageName,
-        messageOrderNumber: req.body.messageOrderNumber,
-        messageShopName: req.body.messageShopName,
-        messageShopSku: req.body.messageShopSku,
-        messageShopPrice: req.body.messageShopPrice,
-        messageSaleDitch: req.body.messageSaleDitch,
-        senduserId: req.body.senduserId,
-    };
-    addSendMessageMission(message);
+    console.log(req.body);
+    // if (req.body.messageUrl === undefined || req.body.picUrl === undefined || req.body.messagePrincipal === undefined || req.body.messageName === undefined || req.body.messageOrderNumber === undefined || req.body.messageShopName === undefined || req.body.messageShopSku === undefined || req.body.messageShopPrice === undefined || req.body.messageSaleDitch === undefined || req.body.senduserId === undefined) {
+    //     res.send('格式错误');
+    //     return;
+    // }
+    // if (req.body.messageUrl === '' || req.body.picUrl === '' || req.body.messagePrincipal === '' || req.body.messageName === '' || req.body.messageOrderNumber === '' || req.body.messageShopName === '' || req.body.messageShopSku === '' || req.body.messageShopPrice === '' || req.body.messageSaleDitch === '' || req.body.senduserId === '') {
+    //     res.send('格式错误');
+    //     return;
+    // }
+    // var message = {
+    //     messageUrl: req.body.messageUrl,
+    //     picUrl: req.body.picUrl,
+    //     messagePrincipal: req.body.messagePrincipal,
+    //     messageName: req.body.messageName,
+    //     messageOrderNumber: req.body.messageOrderNumber,
+    //     messageShopName: req.body.messageShopName,
+    //     messageShopSku: req.body.messageShopSku,
+    //     messageShopPrice: req.body.messageShopPrice,
+    //     messageSaleDitch: req.body.messageSaleDitch,
+    //     senduserId: req.body.senduserId,
+    // };
+    // addSendMessageMission(message);
 });
 
 
