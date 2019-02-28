@@ -83,15 +83,17 @@ var addSendTextMessageMission = function(messageData){
     dingtalk.client.getAccessToken()
         .then(doc=>{
             var contents = querystring.stringify({
-                access_token: doc,
+                agent_id: "210810582",
+                userid_list: messageData.userId,
+                msg: {"msgtype":"text","text":{"content":"消息内容"}}
             });
             var options = {
                 host: 'https://oapi.dingtalk.com',
                 port: '80',
-                path:'/chat/send',
+                path:'/topapi/message/corpconversation/asyncsend_v2',
                 method:'POST',
                 headers:{
-                    'Content-Type':'application/x-www-form-urlencoded',
+                    'Content-Type':'application/x-www-form-urlencoded?access_token='+doc,
                     'Content-Length':contents.length
                 }
             };
