@@ -57,10 +57,10 @@ router.post('/sendMessage',(req,res)=>{
         res.send('格式错误');
         return;
     }
-    if (req.body.messageUrl === '' || req.body.picUrl === '' || req.body.messagePrincipal === '' || req.body.messageName === '' || req.body.messageOrderNumber === '' || req.body.messageShopName === '' || req.body.messageShopSku === '' || req.body.messageShopPrice === '' || req.body.messageSaleDitch === '' || req.body.senduserId === '') {
-        res.send('格式错误');
-        return;
-    }
+    // if (req.body.messageUrl === '' || req.body.picUrl === '' || req.body.messagePrincipal === '' || req.body.messageName === '' || req.body.messageOrderNumber === '' || req.body.messageShopName === '' || req.body.messageShopSku === '' || req.body.messageShopPrice === '' || req.body.messageSaleDitch === '' || req.body.senduserId === '') {
+    //     res.send('格式错误');
+    //     return;
+    // }
     var message = {
         messageUrl: req.body.messageUrl,
         picUrl: req.body.picUrl,
