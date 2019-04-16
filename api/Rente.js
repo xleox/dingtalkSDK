@@ -69,11 +69,11 @@ router.post('/sendMessage',(req,res)=>{
     if (req.body.type !== 'text') {
         messageData.content = JSON.parse(req.body.content);
     } else {
-        console.log("钉钉消息提示内容", req.body.content);
         if (req.body.content.indexOf('等') !== -1) {
             console.log("等物流单号状态，不提示！！！");
             return;
         } else {
+            console.log("钉钉消息提示内容", req.body.content);
             messageData.content = req.body.content;
         }
     }
