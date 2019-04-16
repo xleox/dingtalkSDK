@@ -77,6 +77,7 @@ router.post('/sendMessage',(req,res)=>{
             messageData.content = req.body.content;
         }
     }
+    console.log("具体信息", messageData);
     addSendMessageMission(messageData);
     res.send('ok');
 });
