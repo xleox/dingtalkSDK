@@ -73,11 +73,11 @@ router.post('/sendMessage',(req,res)=>{
             console.log(req.body.content + "等物流单号状态，不提示！！！");
             return;
         } else {
-            console.log("钉钉消息提示内容", req.body.content);
+            // console.log("钉钉消息提示内容", req.body.content);
             messageData.content = req.body.content;
         }
     }
-    console.log("具体信息", messageData);
+    // console.log("具体信息", messageData);
     addSendMessageMission(messageData);
     res.send('ok');
 });
