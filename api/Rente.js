@@ -70,7 +70,7 @@ router.post('/sendMessage',(req,res)=>{
         messageData.content = JSON.parse(req.body.content);
     } else {
         if (req.body.content.indexOf('等') !== -1) {
-            console.log("等物流单号状态，不提示！！！");
+            console.log(req.body.content + "等物流单号状态，不提示！！！");
             return;
         } else {
             console.log("钉钉消息提示内容", req.body.content);
