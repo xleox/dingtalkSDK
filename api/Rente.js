@@ -47,16 +47,13 @@ var addSendMessageMission = function(messageData){
         };
     }
     dingtalk.message.send(temp).then(msg=>{
-        // console.log('消息发送', msg);
         return new Promise(function(resolve, reject){resolve(msg);});
     }).catch(err=>{
-        // console.log(err);
         return new Promise(function(resolve, reject){reject(err);});
     })
 };
 
 router.post('/sendMessage',(req,res)=>{
-    // console.log(req.body);
     if (req.body.type === undefined || req.body.content === undefined || req.body.type === '' || req.body.content === '') {
         res.send('格式错误');
         return;
@@ -73,11 +70,9 @@ router.post('/sendMessage',(req,res)=>{
             console.log(req.body.content + "等物流单号状态，不提示！！！");
             return;
         } else {
-            // console.log("钉钉消息提示内容", req.body.content);
             messageData.content = req.body.content;
         }
     }
-    // console.log("具体信息", messageData);
     addSendMessageMission(messageData);
     res.send('ok');
 });
