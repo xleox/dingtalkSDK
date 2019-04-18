@@ -67,7 +67,7 @@ router.post('/sendMessage',(req,res)=>{
         messageData.content = JSON.parse(req.body.content);
     } else {
         if (req.body.content.indexOf('等') !== -1) {
-            console.log(req.body.content + "等物流单号状态，不提示！！！");
+            // console.log(req.body.content + "等物流单号状态，不提示！！！");
             return;
         } else {
             messageData.content = req.body.content;
