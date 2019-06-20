@@ -10,7 +10,6 @@ router.get('/',(req,res)=>{
 });
 // 发送出单消息提醒
 var addSendMessageMission = function(messageData){
-    console.log(messageData)
     var temp = {touser: messageData.userID, agentid: "210810582"};
     if (messageData.type === 'text') {
         temp.msgtype = 'text';
