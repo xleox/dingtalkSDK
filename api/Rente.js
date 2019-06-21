@@ -31,6 +31,9 @@ var addSendMessageMission = function(messageData){
                     key: "订单编号：",
                     value: messageData.content.订单编号
                 }, {
+                    key: "SKU：",
+                    value: messageData.content.SKU
+                }, {
                     key: "销售渠道：",
                     value: messageData.content.销售渠道
                 }, {
