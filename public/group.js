@@ -1,5 +1,6 @@
 'use strict';
 
+// 订单提示分组
 exports.groupDisplay = (parameter) => {
     let userID = '';
     if (parameter === '运营一组') {
@@ -15,7 +16,7 @@ exports.groupDisplay = (parameter) => {
     }
     return userID;
 };
-
+// 物流消息分组
 exports.matchGroupDisplay = (contentStr) => {
     let userID = '';
     if (contentStr.match(/<运营一组>/g) !== null) {
