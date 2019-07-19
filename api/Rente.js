@@ -75,10 +75,7 @@ router.post('/sendMessage',(req,res)=>{
         messageData.userID = Group.groupDisplay(JSON.parse(req.body.content).负责人);
         messageData.content = JSON.parse(req.body.content);
     } else {
-        if (req.body.content.indexOf('等') !== -1) {
-            // console.log(req.body.content + "等物流单号状态，不提示！！！");
-            return;
-        } else {
+        if (req.body.content.match(/等/g) === null) {
             messageData.userID = Group.matchGroupDisplay(req.body.content);
             messageData.content = req.body.content;
         }
