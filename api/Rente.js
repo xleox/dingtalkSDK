@@ -18,6 +18,10 @@ var addSendMessageMission = function(messageData){
             console.log(messageData.content, "数据格式错误");
             return;
         }
+        if (messageData.content.match(/监控平台发货单号\([A-Z]{2}[0-9]{9}[A-Z]{2}\)与工厂发货单号\([A-Z]{2}[0-9]{9}SG\)不符/g) !== null) {
+            console.log(messageData.content, "新加坡小包修改，不提示!!!");
+            return;
+        }
         let orderID = messageData.content.match(/[0-9]{3}-[0-9]{7}-[0-9]{7}/g)[0];
         if (shield.shieldList.indexOf(orderID) > -1) {
             console.log(messageData.content.match(/[0-9]{3}-[0-9]{7}-[0-9]{7}/g)[0] + ": 该订单编号数据不提示");
