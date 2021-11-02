@@ -60,6 +60,12 @@ var addSendMessageMission = function(messageData){
                 author: "Amazon"
             }
         };
+        if (Number(messageData.content.数量) > 1) {
+            temp.oa.body.form.push({
+                key: "数量：",
+                value: Number(messageData.content.数量)
+            })
+        }
     }
     dingtalk.message.send(temp).then(msg=>{
         return new Promise(function(resolve, reject){resolve(msg);});
