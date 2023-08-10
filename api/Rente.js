@@ -95,5 +95,48 @@ router.post('/sendMessage',(req,res)=>{
     addSendMessageMission(messageData);
     res.send('ok');
 });
+// 添加入库提示
+router.post('/receiveMessage', (req, res) => {
+    let dingData = req.body;
+    let temp = {
+        touser: Group.warehouseDisplay,
+        agentid: '210810582',
+        msgtype: 'oa',
+        oa: {
+            head: {
+                bgcolor: 'FFBBBBBB',
+                text: 'FBA提交入库'
+            },
+            body: {
+                title: `FBA入库 ${dingData['账号名称']} (${dingData['所属组']})`,
+                form: [
+                    {
+                        key: 'SKU：',
+                        value: dingData['SKU']
+                    }, {
+                        key: 'ASIN：',
+                        value: dingData['ASIN']
+                    }, {
+                        key: '产品名称：',
+                        value: dingData['产品名称']
+                    }, {
+                        key: '新增或补仓：',
+                        value: dingData['新增或补仓']
+                    }, {
+                        key: '数量：',
+                        value: dingData['数量']
+                    }
+                ],
+                image: dingData['产品图片'],
+                author: '销售监控平台'
+            }
+        }
+    };
+    dingtalk.message.send(temp).then(msg => {
+        res.send(`ok: ${msg.message}`);
+    }).catch(err => {
+        res.send(`error: ${err.message}`);
+    })
+})
 
 module.exports = router;
