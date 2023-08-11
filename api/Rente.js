@@ -99,7 +99,7 @@ router.post('/sendMessage',(req,res)=>{
 router.post('/receiveMessage', (req, res) => {
     let dingData = req.body;
     let temp = {
-        touser: Group.warehouseDisplay,
+        touser: Group.warehouseDisplay(),
         agentid: '210810582',
         msgtype: 'oa',
         oa: {
@@ -108,7 +108,7 @@ router.post('/receiveMessage', (req, res) => {
                 text: 'FBA提交入库'
             },
             body: {
-                title: `FBA入库 ${dingData['账号名称']} (${dingData['所属组']})`,
+                title: `FBA入库：${dingData['账号名称']} (${dingData['所属组']})`,
                 form: [
                     {
                         key: 'SKU：',
